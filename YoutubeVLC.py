@@ -6,7 +6,7 @@ import subprocess
 import youtube_dl
 
 def convertPL(oldURL, u, p):
-    ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s.%(ext)s', 'username': u, 'password': p})
+    ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s.%(ext)s', 'username': u, 'password': p, 'cookiefile': 'cookies.txt', 'cachedir': False})
     urlList = []
     with ydl:
         result = ydl.extract_info(oldURL,download=False)
@@ -18,25 +18,26 @@ def convertPL(oldURL, u, p):
 
 
 def convertVD(oldURL, u, p):
-    return "$(youtube-dl --get-url --no-playlist -u " + u + " -p " + p + " --format best '" + oldURL + "')"
+    return "$(youtube-dl --get-url --no-playlist --cookies=cookies.txt --no-cache-dir --rm-cache-dir -u " + u + " -p " + p + " --format best '" + oldURL + "')"
     
 
 print('Enter URL or enter "PW" to see/change youtube login info') #asks for input
 urlid = input()
 if 'http' in urlid:
-    loginInfo = open('UserPass.json', 'r')
-    username = loginInfo["username"]
-    password = loginInfo["password"]
+    with open('UserPass.json', 'r') as h:
+        loginInfo = json.load(h)
+        username = loginInfo["username"]
+        password = loginInfo["password"]
     if 'list' in urlid:
         if 'watch?v' in urlid:
-            print('Enter 1 to play all videos in the playlist. Enter 2 to play the first video in the playlist.')
+            print('Enter 1 to play all videos in the playlist. Enter 2 to only play the video linked.')
             playlist = str(input())
-            if '1' or '1' in playlist:
+            if '1' in playlist:
                 playlistURL = convertPL(urlid, username, password)
                 for x in playlistURL:
                     subprocess.run(["powershell", "-Command", 'vlc --play-and-exit "' + convertVD(x, username, password) + '"'], capture_output=True)
                 exit
-            elif 'N' or 'n' in playlist:
+            elif '2' in playlist:
                 subprocess.run(["powershell", "-Command", 'vlc "' + convertVD(urlid, username, password) + '"'], capture_output=True)
                 exit
             else:
