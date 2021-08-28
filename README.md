@@ -10,13 +10,22 @@ Youtube-DL (you can install here: https://github.com/ytdl-org/youtube-dl/release
 
 Youtube-DL module (pip install youtube_dl)
 
-## Features
+## How to setup
 
-You can watch videos with copyrighted material in them.
+Install all of the requirements.
 
-You can use playlists.
+Go to youtube.com and export a text file of the cookies (can be done through this extension: https://chrome.google.com/webstore/detail/get-cookiestxt/bgaddhkoddajcdgocldbbfleckgcbcid/related?hl=en).
 
-Note about playlists: 1] Each video queues after the first one is finished or if the VLC window is closed. 2] Youtube-DL is slow in getting playlists, wouldn't recommend for playlists with >50 videos. 
+Rename the text file to cookies.txt and place it in the directory where you installed YoutubeVLC.
+
+Launch the python script and enter PW to set up login information (this needs to be done to access private and age-restricted videos).
+
+After the program closes, you can now enter links to youtube videos and playlists.
+
+## Note about playlists
+1] Each video queues after the first one is finished or if the VLC window is closed. 
+
+2] Youtube-DL is slow in getting playlists, wouldn't recommend for playlists with >50 videos. 
 
 ## How it works
 
