@@ -25,10 +25,17 @@ After the program closes, you can now enter links to youtube videos and playlist
 ## Note about playlists
 1] Each video queues after the first one is finished or if the VLC window is closed. 
 
-2] Youtube-DL is slow in getting playlists, wouldn't recommend for playlists with >50 videos. 
+~~2] Youtube-DL is slow in getting playlists, wouldn't recommend for playlists with >50 videos. ~~THIS HAS BEEN FIXED! ENJOY LONG PLAYLISTS
+
+3] To end playback, you must end the python script before closing the VLC window, or the next video will play.
 
 ## How it works
 
 For single videos: runs a command in powershell to get the video URL from youtube-DL and put it into VLC
 
 For playlists: gets a list of URLs from youtube-DL, puts them into a list, then plays each of them using the same method above.
+
+##Changelog
+v1 Initial Script
+v2 - Added login system to allow age-restricted videos to play
+v3 - Uses extract-flat to make getting playlist urls much quicker
