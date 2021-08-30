@@ -6,16 +6,17 @@ import subprocess
 import youtube_dl
 
 def convertPL(oldURL, u, p):
-    ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s.%(ext)s', 'username': u, 'password': p, 'cookiefile': 'cookies.txt', 'cachedir': False})
+    ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s.%(ext)s', 'username': u, 'password': p, 'cookiefile': 'cookies.txt', 'cachedir': False, 'extract_flat': True})
     urlList = []
     with ydl:
         result = ydl.extract_info(oldURL,download=False)
         video = result['entries']
-
         for i, item in enumerate(video):
-            urlList.append(result['entries'][i]['webpage_url'])
+             urlList.append(result['entries'][i]['url'])
     return urlList
 
+def convertSVD(oldURL, u, p):
+    return "$(youtube-dl --get-url --no-playlist --cookies=cookies.txt --no-cache-dir --rm-cache-dir -u " + u + " -p " + p + " --format best 'https://www.youtube.com/watch?v=" + oldURL + "')"
 
 def convertVD(oldURL, u, p):
     return "$(youtube-dl --get-url --no-playlist --cookies=cookies.txt --no-cache-dir --rm-cache-dir -u " + u + " -p " + p + " --format best '" + oldURL + "')"
@@ -35,7 +36,7 @@ if 'http' in urlid:
             if '1' in playlist:
                 playlistURL = convertPL(urlid, username, password)
                 for x in playlistURL:
-                    subprocess.run(["powershell", "-Command", 'vlc --play-and-exit "' + convertVD(x, username, password) + '"'], capture_output=True)
+                    subprocess.run(["powershell", "-Command", 'vlc --play-and-exit "' + convertSVD(x, username, password) + '"'], capture_output=True)
                 exit
             elif '2' in playlist:
                 subprocess.run(["powershell", "-Command", 'vlc "' + convertVD(urlid, username, password) + '"'], capture_output=True)
@@ -46,7 +47,7 @@ if 'http' in urlid:
         else:
             playlistURL = convertPL(urlid, username, password)
             for x in playlistURL:
-                subprocess.run(["powershell", "-Command", 'vlc --play-and-exit "' + convertVD(x, username, password) + '"'], capture_output=True)
+                subprocess.run(["powershell", "-Command", 'vlc --play-and-exit "' + convertSVD(x, username, password) + '"'], capture_output=True)
             exit
     else:
         subprocess.run(["powershell", "-Command", 'vlc "' + convertVD(urlid, username, password) + '"'], capture_output=True)
