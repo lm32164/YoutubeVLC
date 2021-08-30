@@ -6,7 +6,7 @@ import subprocess
 import youtube_dl
 
 def convertPL(oldURL, u, p):
-    ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s.%(ext)s', 'username': u, 'password': p, 'cookiefile': 'cookies.txt', 'cachedir': False, 'extract_flat': True})
+    ydl = youtube_dl.YoutubeDL({'outtmpl': '%(id)s.%(ext)s', 'username': u, 'password': p, 'cookiefile': 'cookies.txt', 'cachedir': False, 'extract_flat': 'in_playlist'})
     urlList = []
     with ydl:
         result = ydl.extract_info(oldURL,download=False)
