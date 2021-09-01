@@ -29,7 +29,7 @@ After the program closes, you can now enter links to youtube videos and playlist
 
 3] To end playback, you must end the python script before closing the VLC window, or the next video will play.
 
-4] To reverse playlist, add " -r" to the end of the video url. To shuffle playlist, add " -s" to the end of the video url.
+4] There are playlist options that you can add after the playlist URL. "-r" reverses the playlist, "-s" shuffles the playlist, and "-p" only plays the first video.
 
 ## How it works
 
@@ -46,3 +46,5 @@ v2 - Added login system to allow age-restricted videos to play
 v3 - Uses extract-flat to make getting playlist urls much quicker
 
 v4 - Added Reverse and Shuffle Playlist
+
+v5 - Code optimization + script prints title of video upon playback.
