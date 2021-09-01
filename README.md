@@ -37,9 +37,12 @@ For single videos: runs a command in powershell to get the video URL from youtub
 
 For playlists: gets a list of URLs from youtube-DL, puts them into a list, then plays each of them using the same method above.
 
-##Changelog
+## Changelog
 
 v1 Initial Script
+
 v2 - Added login system to allow age-restricted videos to play
+
 v3 - Uses extract-flat to make getting playlist urls much quicker
+
 v4 - Added Reverse and Shuffle Playlist
